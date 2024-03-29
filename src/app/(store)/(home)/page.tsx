@@ -4,8 +4,14 @@ import { Product } from "@/data/types/product";
 import Image from "next/image";
 import Link from "next/link";
 
+
+
 async function getFeaturedProducts(): Promise<Product[]> {
-  const response = await api("/products/featured")
+  const response = await api("/products/featured", {
+    next: {
+      revalidate: 60 * 60, // atualizado a cada 1 hora o cache
+    },
+  })
 
   const products = await response.json()
 
