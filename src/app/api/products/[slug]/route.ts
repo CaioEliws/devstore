@@ -1,20 +1,20 @@
-import { z } from "zod"
-import data from "../data.json"
+import { z } from 'zod'
+
+import data from '../data.json'
 
 export async function GET(
-        _: Request, 
-        { params }: { params: { slug: string} },
-    ) {
+  _: Request,
+  { params }: { params: { slug: string } },
+) {
+  await new Promise((resolve) => setTimeout(resolve, 1000))
 
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+  const slug = z.string().parse(params.slug)
 
-    const slug = z.string().parse(params.slug)
+  const product = data.products.find((product) => product.slug === slug)
 
-    const product = data.products.find((product) => product.slug === slug)
+  if (!product) {
+    return Response.json({ message: 'Product not found.' }, { status: 400 })
+  }
 
-    if(!product) {
-        return Response.json({ message: 'Product not found.'}, { status: 400 })
-    }
-
-    return Response.json(product)
+  return Response.json(product)
 }
