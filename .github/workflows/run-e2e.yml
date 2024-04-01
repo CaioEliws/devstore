@@ -9,24 +9,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+          cache-dependency-path: subdir/package-lock.json
+      - run: npm ci
+      - run: npm test
 
       - name: Install NPM
         run: npm install
-
-      - name: Install pnpm/yarn/npm package
-        run: npm install -g pnpm @pnpm/store-path
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
