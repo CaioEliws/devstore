@@ -12,7 +12,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 16
 
       - name: Set up npm
         run: npm install -g npm@latest
@@ -39,3 +39,4 @@ jobs:
         with:
           build: npm run build
           start: npm start
+          browser: chrome
