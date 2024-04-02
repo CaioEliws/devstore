@@ -15,7 +15,7 @@ jobs:
           node-version: 16
 
       - name: Set up npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@8.19.4
 
       - name: Get npm cache directory
         id: npm-cache
